@@ -3,7 +3,10 @@ from tkinter import ttk
 import tkinter as tki
 import tkinter.messagebox as msg
 from PIL import ImageTk, Image
+import engine
 
+e = engine.Engine()
+path_to_image = 'cat.png'
 
 def display_func():
 	root = Tk()
@@ -16,9 +19,9 @@ def display_func():
 
 
 	# create a Image widget
-	pathToImage = 'cat.png'
-	im = Image.open(pathToImage)
-	resized = im.resize((200, 200),Image.ANTIALIAS)
+	# pathToImage = 'cat.png'
+	im = Image.open(path_to_image)
+	resized = im.resize((600, 300),Image.ANTIALIAS)
 	ph = ImageTk.PhotoImage(resized.convert('RGBA'))
 
 	game_display = tki.Label(mainframe, image = ph)
@@ -43,15 +46,21 @@ def display_func():
 		#### Update Textbox
 		#### Update Picture
 
+		##Engine Processing
+		new_text, new_picture = e.parse(user_entry.get())
+
 		#Make the text-box writeable
 		text.config(state=NORMAL)
 		text.delete(1.0, END)
 
-
-		result = user_entry.get() + "\n"
+		#change picture
+		result = new_text + "\n"
 		text.insert(INSERT, result)
 		action_entry_box.delete(0, END)
 
+		#change image
+		global path_to_image
+		path_to_image = new_picture
 
 		#Make the text-box read-only
 		text.config(state=DISABLED)
