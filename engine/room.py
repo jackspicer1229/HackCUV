@@ -141,9 +141,53 @@ class Kitchen():
 			return game_state, room, inventory, "I don't understand that command", picture
 
 class CoatRoom():
-	def __init__(self, things):
-		super().__init__(things)
+	def __init__(self):
+		self.valid_actions = {
+		"inspect coats inspect coatrack look at coat look at coatrack": "inspect_coats",
+		"enter dining room go to dining room": "move_to_dining_room"
+		}
+	def updateState(self, game_state):
+		return 1
+
+	def evaluate(self, user_input, game_state, room, inventory, nlp, picture):
+		#user_score = nlp(user_input)
+		#for key in valid_actions.keys():
+		#	highest score = compare(user_score with nlp(key))
+		#evaluateRoomFunction()
+		actions = [*self.valid_actions.keys()]
+		nlpactions = [nlp(i) for i in actions]
+
+		usernlp = nlp(user_input)
+		similarities = [usernlp.similarity(i) for i in nlpactions]
+		best_action = actions[similarities.index(max(similarities))]	
+
+		if(max(similarities) > 0.7):
+			return evaluateRoomFunction(self.valid_actions[best_action], game_state, room, inventory)
+		else:
+			return game_state, room, inventory, "I don't understand that command", picture
 
 class Hallway():
-	def __init__(self, things):
-		super().__init__(things)
+	def __init__(self):
+		self.valid_actions = {
+		"FIRST": "entered_code",
+		"enter dining room go to dining room": "move_to_dining_room"
+		}
+	def updateState(self, game_state):
+		return 1
+
+	def evaluate(self, user_input, game_state, room, inventory, nlp, picture):
+		#user_score = nlp(user_input)
+		#for key in valid_actions.keys():
+		#	highest score = compare(user_score with nlp(key))
+		#evaluateRoomFunction()
+		actions = [*self.valid_actions.keys()]
+		nlpactions = [nlp(i) for i in actions]
+
+		usernlp = nlp(user_input)
+		similarities = [usernlp.similarity(i) for i in nlpactions]
+		best_action = actions[similarities.index(max(similarities))]	
+
+		if(max(similarities) > 0.7):
+			return evaluateRoomFunction(self.valid_actions[best_action], game_state, room, inventory)
+		else:
+			return game_state, room, inventory, "I don't understand that command", picture

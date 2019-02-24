@@ -67,7 +67,7 @@ def evaluateRoomFunction(function, game_state, room, inventory):
 			return game_state+1, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_tod_1":
 			text_output = "This is crazy!! What do we do?"
-			picture_path = "assets/coatrack.png"
+			picture_path = "assets/coatcheckin.png"
 			return game_state, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_reed_2":
 			if("cookie" in inventory and "redbull" in inventory and "chips" in inventory):
@@ -80,11 +80,11 @@ def evaluateRoomFunction(function, game_state, room, inventory):
 				return game_state, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_tod_2":
 			text_output = "Let you into the coatroom? I don't know. What if you steal someone. If you bring someone above me, then i'm totally fine to letting you in"
-			picture_path = "assets/coatrack.png"
+			picture_path = "assets/coatcheckin.png"
 			return game_state+1, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_adam_2":
 			text_output = "What is it? Oh you need to get into the coat room. Sure I can talk to Tod for you"
-			picture_path = "assets/butlerpixel"
+			picture_path = "assets/butlerpixel.png"
 			return game_state+1, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_tod_3":
 			text_output ="Adam says you are good to go. Go in."
@@ -139,4 +139,14 @@ def evaluateRoomFunction(function, game_state, room, inventory):
 		elif function == "move_to_dining_room":
 			text_output = "you move into the dining room"
 			picture_path = "assets/DiningRoom.png"
-			return game_state, "dining_room", inventory, text_output, picture_path
+			return game_state, "dining_room", inventory, text_output, picture_path	
+	elif room == "hallway"	
+		if function == "entered_code":
+			text_output = "You did it. The first door clicks open. Onward, let's defeat the Creeper"
+			picture_path = "assets/correctpassword.png"
+			return game_state, "hallway", inventory, text_output, picture_path	
+		elif function == "move_to_dining_room":
+			text_output = "you move into the dining room"
+			picture_path = "assets/DiningRoom.png"
+			return game_state, "dining_room", inventory, text_output, picture_path	
+	
