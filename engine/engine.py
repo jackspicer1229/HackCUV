@@ -2,70 +2,93 @@ import nltk
 from nltk.tokenize import word_tokenize
 from collections import Counter
 
+game_state = 0
+room = 'outside'
+inventory = ["letter"]
+
 
 class Engine():
-    def __init__(self):
-        text = "go to the pantry Jim"
-        self.parse(text)
+	def __init__(self):
+		text = "go to the pantry Jim"
+		self.parse(text)
 
-    def parse(self, text):
-        # tag text
-        text = word_tokenize(text)
-        tag = nltk.pos_tag(text)
-        tag_dict = {elem[0]: elem[1] for elem in tag}
-        print(tag)
-        tag_cts = Counter(elem[1] for elem in tag) # nltk.help.upenn_tagset()
-        print(tag_cts)
-        pos = [elem[1] for elem in tag]
+	def parse(self, text):
+		# tag text
+		text = word_tokenize(text)
+		tag = nltk.pos_tag(text)
+		tag_dict = {elem[0]: elem[1] for elem in tag}
+		print(tag)
+		tag_cts = Counter(elem[1] for elem in tag) # nltk.help.upenn_tagset()
+		print(tag_cts)
+		pos = [elem[1] for elem in tag]
 
-        inv_map = {}
-        for k, v in tag_dict.items():
-            inv_map[v] = inv_map.get(v, [])
-            inv_map[v].append(k)
-        print(inv_map)
+		inv_map = {}
+		for k, v in tag_dict.items():
+			inv_map[v] = inv_map.get(v, [])
+			inv_map[v].append(k)
+		print(inv_map)
 
-        if text[0] != 'inspect' or text[0] != 'move' or text[0] != 'talk':
-            print("invalid action")
-        else:
-            verb = text[0]
+		if text[0] != 'inspect' or text[0] != 'go' or text[0] != 'talk' or text[0] != 'use':
+			print("invalid action")
+		else:
+			verb = text[0]
 
-        if 'NN' in inv_map.keys():
-            subject = inv_map['NN'][0]
-        elif 'NNP' in inv_map.keys():
-            subject = inv_map['NNP'][0]
+		if 'NN' in inv_map.keys():
+			subject = inv_map['NN'][0]
+		elif 'NNP' in inv_map.keys():
+			subject = inv_map['NNP'][0]
 
-        functions = {
-            'inspect': {
-                'Sam': Sam.inspect()
-            },
-            'inspect': {
-                'Sam': Sam.inspect()
-            },
-            'inspect': {
-                'Sam': Sam.inspect()
-            }
-        }
+		return engine_update(verb, subject)
+		# functions = {
+		#     'inspect': {
+		#         'Sam': Sam.inspect()
+		#     },
+		#     'inspect': {
+		#         'Sam': Sam.inspect()
+		#     },
+		#     'inspect': {
+		#         'Sam': Sam.inspect()
+		#     }
+		# }
 
-        if verb in functions.keys() and subject in functions[verb].keys():
-            print("valid action")
+		# if verb in functions.keys() and subject in functions[verb].keys():
+		#     print("valid action")
 
-        functions[verb][subject]
+		# functions[verb][subject]
 
-        # if subject not in self.curRoom.objects:
-        #     print("invalid action")
+	def engine_update(verb, subject):
+		if room == "outside":
+			current_room = Outside()
+		else if room == "foyer":
+			current_room = Foyer()
+		else if room == "dining_room":
+			current_room = DiningRoom()
+		else if room == "kitchen":
+			current_room = Kitchen()
+		else if room == "coat_room":
+			current_room = CoatRoom()
+		else if room == "hallway":
+			current_room = Hallway()
 
-        # check validity
-        # if pos.index('VB') < pos.index('NN') or pos.index('VBP') < pos.index('NN') or pos.index('VB') < pos.index('NNP') or pos.index('VBP') < pos.index('NNP'):
-        #     print("poo")
+		current_room.update(game_state)
+		gameState, room, inventory, action_result, stage_graphics = current_room.evaluate()
+		return action_result, stage_graphics
 
-        # if tag_cts['VB'] || tag_cts['VBP']: # number of verbs
-        #     pass
-        # if tag_cts['TO']: # did something TO something else
-        #     pass
-        # if tag_cts['NN']: # normal item
-        #     pass
-        # if tag_cts['NNP']: # interact with person
-        #     pass
+		# if subject not in self.curRoom.objects:
+		#     print("invalid action")
+
+		# check validity
+		# if pos.index('VB') < pos.index('NN') or pos.index('VBP') < pos.index('NN') or pos.index('VB') < pos.index('NNP') or pos.index('VBP') < pos.index('NNP'):
+		#     print("poo")
+
+		# if tag_cts['VB'] || tag_cts['VBP']: # number of verbs
+		#     pass
+		# if tag_cts['TO']: # did something TO something else
+		#     pass
+		# if tag_cts['NN']: # normal item
+		#     pass
+		# if tag_cts['NNP']: # interact with person
+		#     pass
 
 # def printss(txt):
 #     print(txt)
