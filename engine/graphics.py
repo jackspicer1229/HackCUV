@@ -7,12 +7,12 @@ import spacy
 import engine
 
 e = engine.Engine()
-path_to_image = 'cat.png'
+path_to_image = 'assets/cat.png'
 # begin_script = 
 
 def display_func(nlp):
 	root = Tk()
-	root.title("Crypto Game")
+	root.title("The Creeper")
 
 	mainframe = ttk.Frame(root, padding="3 3 12 12")
 	mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
@@ -36,7 +36,7 @@ def display_func(nlp):
 	text.config(font=("verdana", 12), undo=True, wrap='word', state=DISABLED)
 	text.grid(row=1, column=0, sticky='nsew', padx=2, pady=2)
 	text.config(state=NORMAL)
-	text.insert(1.0, "Welcome to INSERT GAME NAME HERE! This is a choose your own adventure-style game. To play, type a command into the console. Try things like 'look around', 'move north', 'move to kitchen', 'talk to Sam', etc. To begin the game, type 'start'")
+	text.insert(1.0, "Welcome to The Creeper! This is a choose your own adventure-style game. To play, type a command into the console. Try things like 'look around', 'move north', 'move to kitchen', 'talk to Sam', etc. To begin the game, type 'start'")
 	text.config(state=DISABLED)
 
 	# create a Scrollbar and associate it with txt
