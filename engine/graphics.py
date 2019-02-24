@@ -5,10 +5,63 @@ import tkinter.messagebox as msg
 from PIL import ImageTk, Image
 import spacy
 import engine
+from play_gif import AnimatedGIF
 
 e = engine.Engine()
-path_to_image = 'assets/cat.png'
+path_to_image = 'assets/entrance.png'
 # begin_script = 
+
+def start_screen():
+	root = Tk()
+	root.title("The Creeper")
+
+	mainframe = ttk.Frame(root, padding="3 3 12 12")
+	mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
+	root.columnconfigure(0, weight=1)
+	root.rowconfigure(0, weight=1)
+
+
+	# create a Image widget
+	game_display = AnimatedGIF(mainframe, "assets/start.gif")
+	game_display.grid(row=0, column=0, sticky='new',padx=2, pady=20)
+
+	# create a Text widget
+	text = tki.Text(mainframe, borderwidth=3, relief="sunken")
+	# text = tki.Label(mainframe, background='#a0ffa0')
+	text.config(font=("verdana", 12), undo=True, wrap='word', state=DISABLED)
+	text.grid(row=1, column=0, sticky='nsew', padx=2, pady=2)
+	text.config(state=NORMAL)
+	text.insert(1.0, "Welcome to The Creeper! This is a choose your own adventure-style game. To play, type a command into the console. Try things like 'look around', 'move north', 'move to kitchen', 'talk to Sam', etc. To begin the game, type 'start'")
+	text.config(state=DISABLED)
+
+	# create a Scrollbar and associate it with txt
+	scrollb = tki.Scrollbar(mainframe, command=text.yview)
+	scrollb.grid(row=1, column=1, sticky='nsew')
+	text['yscrollcommand'] = scrollb.set
+
+	# create a Entry widget
+	def action_event(event): # handler
+		##Engine Processing
+		# new_text, new_picture = e.parse(user_entry.get())
+
+		#Make the text-box writeable
+		text.config(state=NORMAL)
+		if(user_entry.get() == "start"):
+			root.destroy()
+
+		#Make the text-box read-only
+		text.config(state=DISABLED)
+
+	user_entry = tki.StringVar()
+	action_entry_box = tki.Entry(mainframe, textvariable=user_entry)
+	action_entry_box.grid(row=2, column=0, padx=2, pady=2, sticky='nsew')
+	action_entry_box.bind('<Return>', action_event)
+
+
+
+
+	root.mainloop()
+
 
 def display_func(nlp):
 	root = Tk()
@@ -36,7 +89,7 @@ def display_func(nlp):
 	text.config(font=("verdana", 12), undo=True, wrap='word', state=DISABLED)
 	text.grid(row=1, column=0, sticky='nsew', padx=2, pady=2)
 	text.config(state=NORMAL)
-	text.insert(1.0, "Welcome to The Creeper! This is a choose your own adventure-style game. To play, type a command into the console. Try things like 'look around', 'move north', 'move to kitchen', 'talk to Sam', etc. To begin the game, type 'start'")
+	text.insert(1.0, "You stand outside a large, exquisite mansion. In your hand is a gilded red letter. Two towering doors to the mansion stand before you")
 	text.config(state=DISABLED)
 
 	# create a Scrollbar and associate it with txt
@@ -61,7 +114,7 @@ def display_func(nlp):
 
 		#Make the text-box writeable
 		text.config(state=NORMAL)
-		if(clear_screen or user_entry.get() == "start"):
+		if(clear_screen):
 			text.delete(1.0, END)
 
 		#change text box
@@ -100,6 +153,7 @@ def main():
 	# 'Open Dining Room Door 3', 'Open Foyer Door 2', 'Open Kitchen Door 1', 'Enter Hallway', 'Go Inside']
 	# nlpactions = [nlp(i) for i in actions]
 	# display_func(nlp, nlpactions, actions)
+	start_screen()
 	display_func(nlp)
 
 
