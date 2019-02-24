@@ -17,12 +17,12 @@ def display_func():
 	root.columnconfigure(0, weight=1)
 	root.rowconfigure(0, weight=1)
 
-	
+
 	# create a Image widget
 	# pathToImage = 'cat.png'
 	# im = Image.open(pathToImage)
 	resized = im.resize((200, 200),Image.ANTIALIAS)
-	ph = ImageTk.PhotoImage(resized)
+	ph = ImageTk.PhotoImage(resized.convert('RGB'))
 
 	label = tki.Label(image = ph, width=200, height=200)
 	label.grid(row=0, column=0, sticky = 'new')
@@ -51,7 +51,7 @@ def display_func():
 	action_entry_box.grid(row=2, column=0, padx=2, pady=2, sticky='nsew')
 	action_entry_box.bind('<Return>', action_event)
 
-	
+
 
 	root.mainloop()
 
