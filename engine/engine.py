@@ -12,9 +12,9 @@ picture = "cat.png"
 class Engine():
 	def __init__(self):
 		text = ""
-		self.parse(text)
+		self.parse(text, None)
 
-	def parse(self, text):
+	def parse(self, text, nlp):
 		# tag text
 		# text = word_tokenize(text)
 		# tag = nltk.pos_tag(text)
@@ -43,18 +43,18 @@ class Engine():
 		if user_input == "":
 			return
 		else:
-			return self.engine_update(user_input)
+			return self.engine_update(user_input, nlp)
 
-	def engine_update(self, user_input):
+	def engine_update(self, user_input, nlp):
 		global game_state, room, inventory, picture
 		current_room = None
 
-        # functions[verb][subject]
+		# functions[verb][subject]
 		# return engine_update(verb, subject)
 
 		if room == "outside":
 			current_room = r.Outside()
-            song = 'https://www.youtube.com/watch?v=CvYqnmbDCpI&list=PLye9mcKwe2zy3KW8uK_3F7HVMjJjdqSqU&index=13'
+			song = 'https://www.youtube.com/watch?v=CvYqnmbDCpI&list=PLye9mcKwe2zy3KW8uK_3F7HVMjJjdqSqU&index=13'
 		elif room == "foyer":
 			current_room = r.Foyer()
 		elif room == "dining_room":
@@ -67,8 +67,13 @@ class Engine():
 			current_room = r.Hallway()
 
 		current_room.updateState(game_state)
-		game_state, room, inventory, action_result, stage_graphics = current_room.evaluate(user_input, game_state, room, inventory, picture)
-		return action_result, stage_graphics
+		temp_room = room
+		game_state, room, inventory, action_result, stage_graphics = current_room.evaluate(user_input, game_state, room, inventory, nlp, picture)
+		
+		scene_change = False
+		if(temp_room != room):
+			scene_change = True
+		return action_result, stage_graphics, scene_change
 
 
 
