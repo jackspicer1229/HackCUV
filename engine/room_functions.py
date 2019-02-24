@@ -55,23 +55,23 @@ def evaluateRoomFunction(function, game_state, room, inventory):
 			return game_state+1, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_tod_1":
 			text_output = "This is crazy!! What do we do?"
-			picture_path = "assets/coatrack.png"
+			picture_path = "assets/coatcheckin.png"
 			return game_state, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_reed_2":
 			text_output = "Man I am hungry"
-			picture_path = "assets/compscistudent"
+			picture_path = "assets/compscistudent.png"
 			return game_state, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_reed_3":
 			text_output = "Oh you brought me my food. Thanks. Glug glug glug glug glug. Munch munch munch. Ah okay I guess i'll tell you about Caeser Cyphers huh? Basically, imagine you have 2 lines of alphabet. ABCD... on both the top and bottom. And then you shift the bottom alphabet by some amount. Now A may be corresponding with D, B with E, and so on and so forth. The trick is to know how much it's shifted by. Look around. Now that I think about it, I saw the CEO near the coat rack earlier."
-			picture_path = "assets/compscistudent"
+			picture_path = "assets/compscistudent.png"
 			return game_state+1, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_tod_2":
 			text_output = "Let you into the coatroom? I don't know. What if you steal someone. If you bring someone above me, then i'm totally fine to letting you in"
-			picture_path = "assets/coatrack.png"
+			picture_path = "assets/coatcheckin.png"
 			return game_state+1, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_adam_2":
 			text_output = "What is it? Oh you need to get into the coat room. Sure I can talk to Tod for you"
-			picture_path = "assets/butlerpixel"
+			picture_path = "assets/butlerpixel.png"
 			return game_state+1, "dining_room", inventory, text_output, picture_path
 		elif function == "talk_tod_3":
 			text_output ="Adam says you are good to go. Go in."
@@ -124,10 +124,14 @@ def evaluateRoomFunction(function, game_state, room, inventory):
 			picture_path = "assets/DiningRoom.png"
 			return game_state, "dining_room", inventory, text_output, picture_path	
 		#TODO		
-		pass		
-	elif function == "move_to_dining_room":
+		pass
+	elif room == "hallway"	
+		if function == "entered_code":
+			text_output = "You did it. The first door clicks open. Onward, let's defeat the Creeper"
+			picture_path = "assets/correctpassword.png"
+			return game_state, "hallway", inventory, text_output, picture_path	
+		elif function == "move_to_dining_room":
 			text_output = "you move into the dining room"
 			picture_path = "assets/DiningRoom.png"
-			return game_state, "dining_room", inventory, text_output, picture_path 
-		#TODO
-		pass
+			return game_state, "dining_room", inventory, text_output, picture_path	
+	
