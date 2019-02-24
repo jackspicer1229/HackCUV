@@ -43,6 +43,7 @@ class Foyer():
 	def __init__(self):
 		self.valid_actions = {
 		"continue": "continue"
+
 		}
 	def updateState(self, game_state):
 		if(game_state>=1):
@@ -51,6 +52,7 @@ class Foyer():
 			self.valid_actions["talk to Lisa talk with Lisa ask Lisa say Lisa"] = "talk_lisa_1"
 			self.valid_actions["eat cookie"] = "eatCookie"
 			self.valid_actions["pick up cookie grab cookie add cookie"] = "grabCookie"
+			self.valid_actions["move to dining room walk to dining room go back to dining room leave grand hall"] = "move_to_dining_room"
 
 	def evaluate(self, user_input, game_state, room, inventory, nlp, picture):
 		#user_score = nlp(user_input)
@@ -73,23 +75,30 @@ class DiningRoom():
 	def __init__(self):
 		self.valid_actions = {
 		"move to kitchen walk to kitchen go back to kitchen leave dining room": "move_to_kitchen",
-		"move to hallway walk to hallway go back to hallway leave dining room": "move_to_hallway",
-		"talk to Reed talk with Reed ask Reed say Reed": "talk_adam_0",
-		"talk to Adam talk with Adam ask Adam say Adam": "talk_reed_0",
-		"talk to Tod talk with Tod ask Tod say Tod": "talk_tod_1"
+		"move to puzzle hallway walk to hallway go back to hallway leave dining room": "move_to_hallway_0",
+		"move to grand entrance hall walk to grand entrance hall go back to grand entrance hall leave dining room": "move_to_foyer",
+		"talk to Reed talk with Reed ask Reed say Reed": "talk_reed_0",
+		"talk to Adam talk with Adam ask Adam say Adam": "talk_adam_0",
+		"talk to Tod talk with Tod ask Tod say Tod": "talk_tod_1",
+		"look around search near observe": "lookAround"
 		}
 	def updateState(self, game_state):
-		if(game_state==2):
-			self.valid_actions["talk to Adam talk with Adam ask Adam say Adam"] = "talk_adam_1"
-		if(game_state==3):
+		if(game_state>=2):
+			self.valid_actions["talk to Adam talk with Adam ask Adam say Adam"] = "talk_adam_1_a"
+			self.valid_actions["move to hallway walk to hallway go back to hallway leave dining room"] = "move_to_hallway_0"
+		if(game_state>=3):
 			self.valid_actions["talk to Reed talk with Reed ask Reed say Reed"] = "talk_reed_1"
-		if(game_state==4):
-			self.valid_actions["talk to Reed talk with Reed ask Reed say Reed"] = "talk_reed_2"
-		if(game_state==5):
-			self.valid_actions["talk to Tod talk with Tod ask Tod say Tod"] = "talk_tod_2"
-		if(game_state==6):
-			self.valid_actions["talk to Adam talk with Adam ask Adam say Adam"] = "talk_adam_2"
-		if(game_state==7):
+			self.valid_actions["talk to Adam talk with Adam ask Adam say Adam"] = "talk_adam_1_b"
+		if(game_state>=4):
+			self.valid_actions["talk to Reed talk with Reed ask Reed say Reed"] = "talk_reed_2_a"
+		if(game_state>=5):
+			self.valid_actions["talk to Reed talk with Reed ask Reed say Reed"] = "talk_reed_2_b"
+			self.valid_actions["talk to Tod talk with Tod ask Tod say Tod"] = "talk_tod_2_a"
+		if(game_state>=6):
+			self.valid_actions["talk to Tod talk with Tod ask Tod say Tod"] = "talk_tod_2_b"
+			self.valid_actions["talk to Adam talk with Adam ask Adam say Adam"] = "talk_adam_2_a"
+		if(game_state>=7):
+			self.valid_actions["talk to Adam talk with Adam ask Adam say Adam"] = "talk_adam_2_b"
 			self.valid_actions["talk to Tod talk with Tod ask Tod say Tod"] = "talk_tod_3"
 			self.valid_actions["move to coat room walk to coat room go back to coat room leave dining room"] = "move_to_coat_room"
 
@@ -144,7 +153,8 @@ class CoatRoom():
 	def __init__(self):
 		self.valid_actions = {
 		"inspect coats inspect coatrack look at coat look at coatrack": "inspect_coats",
-		"enter dining room go to dining room": "move_to_dining_room"
+		"enter dining room go to dining room": "move_to_dining_room",
+		"look around search near observe": "lookAround"
 		}
 	def updateState(self, game_state):
 		return 1
@@ -170,7 +180,8 @@ class Hallway():
 	def __init__(self):
 		self.valid_actions = {
 		"FIRST": "entered_code",
-		"enter dining room go to dining room": "move_to_dining_room"
+		"enter dining room go to dining room": "move_to_dining_room",
+		"look around search near observe": "lookAround"
 		}
 	def updateState(self, game_state):
 		return 1
