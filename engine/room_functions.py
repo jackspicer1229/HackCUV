@@ -23,10 +23,27 @@ def evaluateRoomFunction(function, game_state, room, inventory):
 			picture_path = "assets/foyer.png"
 			return game_state, "foyer", inventory, text_output, picture_path
 		elif function == "continue":
-			text_output = "Suddenly, the locks to the door behind you latch shut! The AI has trapped you inside the mansion! A shadowy figure appears on the screen and chuckles. \n\n 'Now that I have all the industry professionals in cybersecurity trapped in my mansion, I can execute my master plan. You see, The Creeper is actual a sophisticated rogue AI I have developed to take over the world. Unless you can escape my mansion, it will wreak havoc on every network in the entire world! Muahahahah' \n\n The screen turns off, and people scurry from the room. You are left standing in the foyer alone."
+			text_output = "Suddenly, the locks to the door behind you latch shut! The AI has trapped you inside the mansion! A shadowy figure appears on the screen and chuckles. \n\n 'Now that I have all the industry professionals in cybersecurity trapped in my mansion, I can execute my master plan. You see, The Creeper is actual a sophisticated rogue AI I have developed to take over the world. Unless you can escape my mansion, it will wreak havoc on every network in the entire world! Muahahahah' \n\n The screen disappears into thin air, and people scurry from the room. You are left standing in the foyer alone with two other people."
 			picture_path = "assets/foyer2.png"
 			return game_state+1, "foyer", inventory, text_output, picture_path
-		pass
+		elif function == "talk_timmy_1":
+			text_output = "FILLER"
+			picture_path = "assets/blondpixel.png"
+			return game_state, "foyer", inventory, text_output, picture_path
+		elif function == "talk_lisa_1":
+			text_output = "FILLER"
+			picture_path = "assets/grandmapixel.png"
+			return game_state, "foyer", inventory, text_output, picture_path
+		elif function == "eatCookie":
+			text_output = "You eat the cookie. Yum!"
+			picture_path = "assets/cookiepixel.png"
+			return game_state, "foyer", inventory, text_output, picture_path
+		elif function == "grabCookie":
+			text_output = "You add the cookie to your inventory"
+			picture_path = "assets/cookiepixel.png"
+			if("cookie" not in inventory):
+				inventory.append(cookie)
+			return game_state, "foyer", inventory, text_output, picture_path
 	elif room == "dining_room":
 		#TODO
 		pass			
