@@ -20,15 +20,13 @@ class Outside():
 		"enter house": "enterHouse"
 		}
 	def updateState(self, game_state):
-		print("we good")
 		return 1
 
-	def evaluate(self, user_input, game_state, room, inventory):
+	def evaluate(self, user_input, game_state, room, inventory, picture):
 		if(user_input in self.valid_actions.keys()):
-			print("we good")
 			return evaluateRoomFunction(self.valid_actions[user_input], game_state, room, inventory)
 		else:
-			return 1,1,1,1,1
+			return game_state, room, inventory, "not a valid action", picture
 
 
 

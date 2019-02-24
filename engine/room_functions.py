@@ -1,6 +1,4 @@
 def evaluateRoomFunction(function, game_state, room, inventory):
-	print("in evaluateRoomFunction")
-	print(function, game_state, room, inventory)
 	if room == "outside":
 		if function == "lookAround":
 			text_output = "You see a large mansion"

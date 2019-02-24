@@ -6,6 +6,7 @@ import room as r
 game_state = 0
 room = 'outside'
 inventory = ["letter"]
+picture = "cat.png"
 
 
 class Engine():
@@ -45,7 +46,7 @@ class Engine():
 			return self.engine_update(user_input)
 
 	def engine_update(self, user_input):
-		global game_state, room, inventory
+		global game_state, room, inventory, picture
 		current_room = None
 
 
@@ -63,8 +64,7 @@ class Engine():
 			current_room = r.Hallway()
 
 		current_room.updateState(game_state)
-		print(user_input, game_state, room, inventory)
-		game_state, room, inventory, action_result, stage_graphics = current_room.evaluate(user_input, game_state, room, inventory)
+		game_state, room, inventory, action_result, stage_graphics = current_room.evaluate(user_input, game_state, room, inventory, picture)
 		return action_result, stage_graphics
 
 		
