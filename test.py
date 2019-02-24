@@ -2,11 +2,13 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tki
 import tkinter.messagebox as msg
-# import tkinter as tki
 from PIL import ImageTk, Image
 
 
 def display_func():
+	pathToImage = 'cat.png'
+	im = Image.open(pathToImage)
+
 	root = Tk()
 	root.title("Crypto Game")
 
@@ -17,8 +19,8 @@ def display_func():
 
 	
 	# create a Image widget
-	pathToImage = 'cat.png'
-	im = Image.open(pathToImage)
+	# pathToImage = 'cat.png'
+	# im = Image.open(pathToImage)
 	resized = im.resize((200, 200),Image.ANTIALIAS)
 	ph = ImageTk.PhotoImage(resized)
 
