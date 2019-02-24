@@ -54,6 +54,7 @@ class Engine():
 
 		if room == "outside":
 			current_room = r.Outside()
+            song = 'https://www.youtube.com/watch?v=CvYqnmbDCpI&list=PLye9mcKwe2zy3KW8uK_3F7HVMjJjdqSqU&index=13'
 		elif room == "foyer":
 			current_room = r.Foyer()
 		elif room == "dining_room":
