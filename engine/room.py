@@ -14,18 +14,18 @@ class Outside():
 	def __init__(self):
 		self.valid_actions = {
 		"look around search near observe": "lookAround",
-		"open letter": "readLetter",
-		"enter house": "enterHouse"
+		"open letter read letter look at letter": "readLetter",
+		"enter house go in house open door to house": "enterHouse"
 		}
 	def updateState(self, game_state):
 		return 1
 
-	def evaluate(self, user_input, game_state, room, inventory, picture):
+	def evaluate(self, user_input, game_state, room, inventory, nlp, picture):
 		#user_score = nlp(user_input)
 		#for key in valid_actions.keys():
 		#	highest score = compare(user_score with nlp(key))
 		#evaluateRoomFunction()
-		actions = self.valid_actions.keys()
+		actions = [*self.valid_actions.keys()]
 		nlpactions = [nlp(i) for i in actions]
 
 		usernlp = nlp(user_input)

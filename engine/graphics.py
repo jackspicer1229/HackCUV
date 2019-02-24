@@ -8,6 +8,7 @@ import engine
 
 e = engine.Engine()
 path_to_image = 'cat.png'
+# begin_script = 
 
 def display_func(nlp):
 	root = Tk()
@@ -27,13 +28,14 @@ def display_func(nlp):
 
 	game_display = tki.Label(mainframe, image = ph)
 	game_display.grid(row=0, column=0, sticky='new',padx=2, pady=20)
-	game_display.image=ph
+	# game_display.image=ph
 
 	# create a Text widget
 	text = tki.Text(mainframe, borderwidth=3, relief="sunken")
 	# text = tki.Label(mainframe, background='#a0ffa0')
 	text.config(font=("consolas", 12), undo=True, wrap='word', state=DISABLED)
 	text.grid(row=1, column=0, sticky='nsew', padx=2, pady=2)
+	text.insert(1.0, "Welcome to INSERT GAME NAME HERE! This is a choose your own adventure-style game. To play, type a command into the console. Try things like 'look around', 'move north', 'move to kitchen', 'talk to Sam', etc. To begin the game, type 'start'")
 
 	# create a Scrollbar and associate it with txt
 	scrollb = tki.Scrollbar(mainframe, command=text.yview)
@@ -59,14 +61,20 @@ def display_func(nlp):
 		text.config(state=NORMAL)
 		text.delete(1.0, END)
 
-		#change picture
+		#change text box
 		result = new_text + "\n"
 		text.insert(INSERT, result)
 		action_entry_box.delete(0, END)
 
 		#change image
-		global path_to_image
-		path_to_image = new_picture
+		# global path_to_image
+		# path_to_image = new_picture
+		# print(path_to_image)
+		im_new = Image.open(new_picture)
+		resized_new = im_new.resize((600, 300),Image.ANTIALIAS)
+		ph_new = ImageTk.PhotoImage(resized_new.convert('RGBA'))
+		game_display.configure(image=ph_new)
+		game_display.image = ph_new
 
 		#Make the text-box read-only
 		text.config(state=DISABLED)
