@@ -15,6 +15,10 @@ def evaluateRoomFunction(function, game_state, room, inventory):
 			text_output = "You are now inside the house. You stand in a large foyer with many people and a large computer in the middle."
 			picture_path = "cat.png"
 			return game_state, "outside", inventory, text_output, picture_path
+		elif function == "start":
+			text_output = "You stand outside a large, exquisite mansion. In your hand is a gilded red letter. Two towering doors to the mansion stand before you"
+			picture_path = "cat.png"
+			return game_state, "outside", inventory, text_output, picture_path
 	elif room == "foyer":
 		#TODO
 		pass

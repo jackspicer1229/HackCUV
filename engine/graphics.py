@@ -33,9 +33,11 @@ def display_func(nlp):
 	# create a Text widget
 	text = tki.Text(mainframe, borderwidth=3, relief="sunken")
 	# text = tki.Label(mainframe, background='#a0ffa0')
-	text.config(font=("consolas", 12), undo=True, wrap='word', state=DISABLED)
+	text.config(font=("verdana", 12), undo=True, wrap='word', state=DISABLED)
 	text.grid(row=1, column=0, sticky='nsew', padx=2, pady=2)
+	text.config(state=NORMAL)
 	text.insert(1.0, "Welcome to INSERT GAME NAME HERE! This is a choose your own adventure-style game. To play, type a command into the console. Try things like 'look around', 'move north', 'move to kitchen', 'talk to Sam', etc. To begin the game, type 'start'")
+	text.config(state=DISABLED)
 
 	# create a Scrollbar and associate it with txt
 	scrollb = tki.Scrollbar(mainframe, command=text.yview)
@@ -55,14 +57,16 @@ def display_func(nlp):
 
 		##Engine Processing
 		# new_text, new_picture = e.parse(user_entry.get())
-		new_text, new_picture = e.parse(user_entry.get(), nlp)
+		new_text, new_picture, clear_screen = e.parse(user_entry.get(), nlp)
 
 		#Make the text-box writeable
 		text.config(state=NORMAL)
-		text.delete(1.0, END)
+		if(clear_screen or user_entry.get() == "start"):
+			text.delete(1.0, END)
 
 		#change text box
-		result = new_text + "\n"
+		result = new_text + "\n\n"
+		text.insert(INSERT, "> " + user_entry.get() + "\n\n")
 		text.insert(INSERT, result)
 		action_entry_box.delete(0, END)
 

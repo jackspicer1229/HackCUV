@@ -15,7 +15,8 @@ class Outside():
 		self.valid_actions = {
 		"look around search near observe": "lookAround",
 		"open letter read letter look at letter": "readLetter",
-		"enter house go in house open door to house": "enterHouse"
+		"enter house go in house open door to house": "enterHouse",
+		"start": "start"
 		}
 	def updateState(self, game_state):
 		return 1
