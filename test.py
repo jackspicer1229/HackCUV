@@ -4,6 +4,7 @@ import tkinter as tki
 import tkinter.messagebox as msg
 from PIL import ImageTk, Image
 import spacy
+import pygame
 
 
 def display_func(nlp, nlpactions, actions):
@@ -78,6 +79,11 @@ def main():
 	'Open Dining Room Door 3', 'Open Foyer Door 2', 'Open Kitchen Door 1', 'Enter Hallway', 'Go Inside']
 	nlpactions = [nlp(i) for i in actions]
 	display_func(nlp, nlpactions, actions)
+	pygame.init()
+	pygame.display.set_mode(pygame.display.list_modes()[-1]) # smallest resolution available
+	pygame.mixer.init()
+	pygame.mixer.music.load("music/outside.mp3")
+	pygame.mixer.music.play(-1) # repeat 5 times
 
 
 

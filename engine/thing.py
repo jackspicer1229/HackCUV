@@ -25,3 +25,18 @@ class NPC():
 
     def inspect(self):
         pass
+
+# Adam Ceo (Butler)
+#
+# Chef Dubois
+#
+# Timmy (Kid next door)
+#
+# Sam (comp sci nerd)
+#
+# Lisa (old woman)
+#
+# Todd (coat check)
+
+# Credits
+# Music from OpenSourceMusic.com by Penn Pierson Creative Commons

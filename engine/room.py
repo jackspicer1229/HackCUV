@@ -45,8 +45,12 @@ class Foyer():
 		"continue": "continue"
 		}
 	def updateState(self, game_state):
-		if(game_state==1):
+		if(game_state>=1):
 			self.valid_actions["look around search near observe"] = "lookAround"
+			self.valid_actions["talk to Timmy talk with Timmy ask Timmy say Timmy"] = "talk_timmy_1"
+			self.valid_actions["talk to Lisa talk with Lisa ask Lisa say Lisa"] = "talk_lisa_1"
+			self.valid_actions["eat cookie"] = "eatCookie"
+			self.valid_actions["pick up cookie grab cookie add cookie"] = "grabCookie"
 
 	def evaluate(self, user_input, game_state, room, inventory, nlp, picture):
 		#user_score = nlp(user_input)
