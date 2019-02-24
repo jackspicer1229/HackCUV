@@ -13,18 +13,27 @@ from room_functions import evaluateRoomFunction
 class Outside():
 	def __init__(self):
 		self.valid_actions = {
-		"look around": "lookAround",
+		"look around search near observe": "lookAround",
 		"open letter": "readLetter",
-		"read letter": "readLetter",
-		"open door": "enterHouse",
 		"enter house": "enterHouse"
 		}
 	def updateState(self, game_state):
 		return 1
 
 	def evaluate(self, user_input, game_state, room, inventory, picture):
-		if(user_input in self.valid_actions.keys()):
-			return evaluateRoomFunction(self.valid_actions[user_input], game_state, room, inventory)
+		#user_score = nlp(user_input)
+		#for key in valid_actions.keys():
+		#	highest score = compare(user_score with nlp(key))
+		#evaluateRoomFunction()
+		actions = self.valid_actions.keys()
+		nlpactions = [nlp(i) for i in actions]
+
+		usernlp = nlp(user_input)
+		similarities = [usernlp.similarity(i) for i in nlpactions]
+		best_action = actions[similarities.index(max(similarities))]	
+
+		if(max(similarities) > 0.7):
+			return evaluateRoomFunction(self.valid_actions[best_action], game_state, room, inventory)
 		else:
 			return game_state, room, inventory, "not a valid action", picture
 

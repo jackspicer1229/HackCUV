@@ -9,7 +9,7 @@ import engine
 e = engine.Engine()
 path_to_image = 'cat.png'
 
-def display_func(nlp, nlpactions, actions):
+def display_func(nlp):
 	root = Tk()
 	root.title("Crypto Game")
 
@@ -44,15 +44,16 @@ def display_func(nlp, nlpactions, actions):
 	def action_event(event): # handler
 		####*********************** TO DO *************************************#####
 		#### Pass entry into text processor
-		usernlp = nlp(user_entry.get())
-		similarities = [usernlp.similarity(i) for i in nlpactions]
-		print(actions[similarities.index(max(similarities))], max(similarities))
-		print(similarities)
+		# usernlp = nlp(user_entry.get())
+		# similarities = [usernlp.similarity(i) for i in nlpactions]
+		# print(actions[similarities.index(max(similarities))], max(similarities))
+		# print(similarities)
 		#### Update Textbox
 		#### Update Picture
 
 		##Engine Processing
-		new_text, new_picture = e.parse(user_entry.get())
+		# new_text, new_picture = e.parse(user_entry.get())
+		new_text, new_picture = e.parse(user_entry.get(), nlp)
 
 		#Make the text-box writeable
 		text.config(state=NORMAL)
@@ -83,11 +84,11 @@ def display_func(nlp, nlpactions, actions):
 
 def main():
 	nlp = spacy.load('en_core_web_lg')
-	actions = ['Talk to Jane', 'Talk to Michael', 'Talk to Francis', 'Talk to the Cook',
-	'Open Dining Room Door 3', 'Open Foyer Door 2', 'Open Kitchen Door 1', 'Enter Hallway', 'Go Inside']
-	nlpactions = [nlp(i) for i in actions]
-	display_func(nlp, nlpactions, actions)
-
+	# actions = ['Talk to Jane', 'Talk to Michael', 'Talk to Francis', 'Talk to the Cook',
+	# 'Open Dining Room Door 3', 'Open Foyer Door 2', 'Open Kitchen Door 1', 'Enter Hallway', 'Go Inside']
+	# nlpactions = [nlp(i) for i in actions]
+	# display_func(nlp, nlpactions, actions)
+	display_func(nlp)
 
 
 

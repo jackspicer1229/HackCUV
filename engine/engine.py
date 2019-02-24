@@ -14,7 +14,7 @@ class Engine():
 		text = ""
 		self.parse(text)
 
-	def parse(self, text):
+	def parse(self, text, nlp):
 		# tag text
 		# text = word_tokenize(text)
 		# tag = nltk.pos_tag(text)
