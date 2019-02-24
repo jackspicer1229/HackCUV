@@ -67,9 +67,13 @@ class Engine():
 			current_room = r.Hallway()
 
 		current_room.updateState(game_state)
+		temp_room = room
 		game_state, room, inventory, action_result, stage_graphics = current_room.evaluate(user_input, game_state, room, inventory, nlp, picture)
-		print("Stage graphics = " + stage_graphics)
-		return action_result, stage_graphics
+		
+		scene_change = False
+		if(temp_room != room):
+			scene_change = True
+		return action_result, stage_graphics, scene_change
 
 
 

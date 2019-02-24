@@ -15,7 +15,8 @@ class Outside():
 		self.valid_actions = {
 		"look around search near observe": "lookAround",
 		"open letter read letter look at letter": "readLetter",
-		"enter house go in house open door to house": "enterHouse"
+		"enter house go in house open door to house": "enterHouse",
+		"start": "start"
 		}
 	def updateState(self, game_state):
 		return 1
@@ -35,12 +36,34 @@ class Outside():
 		if(max(similarities) > 0.7):
 			return evaluateRoomFunction(self.valid_actions[best_action], game_state, room, inventory)
 		else:
-			return game_state, room, inventory, "not a valid action", picture
+			return game_state, room, inventory, "I don't understand that command", picture
 
 
 class Foyer():
-	def __init__(self, things):
-		super().__init__(things)
+	def __init__(self):
+		self.valid_actions = {
+		"continue": "continue"
+		}
+	def updateState(self, game_state):
+		if(game_state==1):
+			self.valid_actions["look around search near observe"] = "lookAround"
+
+	def evaluate(self, user_input, game_state, room, inventory, nlp, picture):
+		#user_score = nlp(user_input)
+		#for key in valid_actions.keys():
+		#	highest score = compare(user_score with nlp(key))
+		#evaluateRoomFunction()
+		actions = [*self.valid_actions.keys()]
+		nlpactions = [nlp(i) for i in actions]
+
+		usernlp = nlp(user_input)
+		similarities = [usernlp.similarity(i) for i in nlpactions]
+		best_action = actions[similarities.index(max(similarities))]	
+
+		if(max(similarities) > 0.7):
+			return evaluateRoomFunction(self.valid_actions[best_action], game_state, room, inventory)
+		else:
+			return game_state, room, inventory, "I don't understand that command", picture
 
 class DiningRoom():
 	def __init__(self, things):
